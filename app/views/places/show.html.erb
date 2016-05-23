@@ -1,0 +1,20 @@
+
+<div class="card" style="padding:25px;margin:30px;">
+<div class = "row">
+
+	<h4><%= @place.title %></h4>
+	<p><%= @place.description %></p>
+
+	<div class="row">
+	<h6>Rating: </h6> <div style="padding:10px"> <%= rating_for @place, "rating", :disable_after_rate => true %> </div>
+	</div>
+
+	<% @place.photos.each do |place| %>
+
+		<div style="padding:10px">
+		<%= image_tag place.image.url, :class => "responsive-img", :style => "height:150px;" %>
+		</div>
+	<% end %>
+
+</div>
+</div>
