@@ -28,12 +28,15 @@
       </ul>
  </div>
 
+
+
+
     <div id="test1" class="col s12">
 		<div class ="container">
 			<div class ="row">
 		<% @places.each do |p| %>
 			<div class="card col l6 s12" style="padding:10px; margin:10px;">
-				<div class="row valign-wrapper">
+				<div class="row">
 		            <div class="col s2">
 		              <img src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg" alt="" style="height:40px;width:40px;" class="circle responsive-img"> <!-- notice the "circle" class -->
 		            </div>
@@ -48,9 +51,17 @@
 				</div>
 
 				<div>
-					<% p.photos.limit(4).each do |x|  %>
-						<%= image_tag x.image.url, :class => "responsive-img", :style => "height:150px;" %>
-					<% end  %>
+				<div class="container #cfd8dc blue-grey lighten-4", style="overflow:hidden">
+						<div class="row">
+							<% p.photos.limit(4).each do |x|  %>
+							<div class="col l4 m6 s12">
+								<div class="container white">
+								<%= image_tag x.image.url, :class => "responsive-img", :style=> "width:100%; margin:8px;"%>
+								</div>
+							</div>
+							<% end  %>
+						</div>
+					</div>
 				</div>
 
 				<div style="padding:10px"> <%= rating_for p, "rating", :disable_after_rate => true %> </div>
