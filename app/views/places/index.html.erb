@@ -23,15 +23,12 @@
  <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#test1"> Card View </a></li>
-        <li class="tab col s3"><a href="#test2"> Map View </a></li>
+        <li class="tab col s3"><a class="active" href="#cardv"> Card View </a></li>
+        <li class="tab col s3"><a href="#mapv"> Map View </a></li>
       </ul>
  </div>
 
-
-
-
-    <div id="test1" class="col s12">
+    <div id="cardv" class="col s12">
 		<div class ="container">
 			<div class ="row">
 		<% @places.each do |p| %>
@@ -53,13 +50,13 @@
 				<div>
 				<div class="container #cfd8dc blue-grey lighten-4", style="overflow:hidden">
 						<div class="row">
-							<% p.photos.limit(4).each do |x|  %>
+							<% p.photos.limit(4).each do |x| %>
 							<div class="col l4 m6 s12">
 								<div class="container white">
 								<%= image_tag x.image.url, :class => "responsive-img", :style=> "width:100%; margin:8px;"%>
 								</div>
 							</div>
-							<% end  %>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -70,27 +67,13 @@
 		<% end %>
 		</div>
 		</div>
-
-		</div> 
-
+		</div>
+		<div id="WITH_mapv_DOES_NOT_WORK" class="container center-align" style = "padding:10px;">
+			<div class = "row">
+			   <div class = "col s12">
+			    	<div id="map" class="s12" style="height:400px;"></div>
+			    </div>
+			</div>
+		</div>
   </div>
-    <div id="test2" class="col s12">
-    	<div class="container">
-    		<div class="row">
-    	 		<div id="map" class="s12" style="height:500px;"></div>
-    	 	</div>
-    	</div>
-    </div>
-  </div>
-        
-
-
-
-
-
-
-
-
-
-
-
+  

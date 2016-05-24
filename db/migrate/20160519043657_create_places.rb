@@ -7,7 +7,7 @@ class CreatePlaces < ActiveRecord::Migration
     	t.decimal :lat
     	t.decimal :lng
 
-      t.timestamps null: false
+        t.timestamps null: false
     end
   end
 end

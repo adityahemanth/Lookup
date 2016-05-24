@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
-#devise
+#added gems
 gem 'devise'
 gem 'materialize-sass'
 gem 'geokit'
 gem 'geokit-rails'
 gem 'ratyrate'
 gem 'paperclip'
+gem 'google-analytics-rails', '1.1.0'
+gem 'mysql2', '>= 0.3.13', '< 0.5'
+#added gems
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
