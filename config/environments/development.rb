@@ -45,8 +45,8 @@ Rails.application.configure do
     s3_protocol: 'http',
     s3_host_name: 'lookupbucket.s3-website-us-west-1.amazonaws.com',
     s3_credentials: {
-      access_key_id: ENV['AKIAJXAAIVHZMSM4S4MQ'],
-      secret_access_key: ENV['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'],
+      access_key_id: ENV['ID'],
+      secret_access_key: ENV['Secret'],
       s3_region: ENV['us-west-1']
     }
   }
