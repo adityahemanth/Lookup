@@ -9,6 +9,7 @@ gem 'ratyrate'
 gem 'paperclip'
 gem 'google-analytics-rails', '1.1.0'
 gem 'mysql2', '>= 0.3.13', '< 0.5'
+gem 'aws-sdk', '~> 2.3'
 #added gems
 
 
