@@ -6,10 +6,11 @@ gem 'materialize-sass'
 gem 'geokit'
 gem 'geokit-rails'
 gem 'ratyrate'
-gem 'paperclip'
+gem 'paperclip', '~> 4.2'
 gem 'google-analytics-rails', '1.1.0'
 gem 'mysql2', '>= 0.3.13', '< 0.5'
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk', '< 2.0'
+gem 'figaro'
 #added gems
 
 

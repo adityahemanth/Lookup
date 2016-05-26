@@ -82,6 +82,7 @@ test:
 #
 production:
   <<: *default
-  database: lookup_production
-  username: lookup
-  password: <%= ENV['LOOKUP_DATABASE_PASSWORD'] %>
+  database: awslookupdb
+  #database: lookup_production
+  #username: lookup
+  #password: <%= ENV['LOOKUP_DATABASE_PASSWORD'] %>

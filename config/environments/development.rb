@@ -39,15 +39,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   # config/environments/production.rb
+
   config.paperclip_defaults = {
-    storage: :s3,
-    bucket: ENV['lookupbucket'],
-    s3_protocol: 'http',
-    s3_host_name: 'lookupbucket.s3-website-us-west-1.amazonaws.com',
-    s3_credentials: {
-      access_key_id: ENV['AKIAJXAAIVHZMSM4S4MQ'],
-      secret_access_key: ENV['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'],
-      s3_region: ENV['us-west-1']
+    :bucket => 'lookupbucket',
+    :storage => :s3,
+    :url => ":s3_domain_url",
+    :path => ":class/:id.:style.:extension",
+    :s3_protocol => 'http',
+    #:s3_host_name => 'lookupbucket.s3-website-us-west-1.amazonaws.com',
+    :s3_credentials => {
+      access_key_id: ENV['AKI'],
+      secret_access_key: ENV['SAK'],
+      s3_region: 'us-west-1'
     }
   }
 
