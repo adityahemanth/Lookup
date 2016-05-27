@@ -10,9 +10,10 @@
 var position;
 var geocoder; 
 var bounds; 
-var map = null;
+var map;
 var markers = [];
-var input = document.getElementById('search');
+var input;
+var pos;
 
 function setAddress(address){
   $("#search").val(address);
@@ -28,17 +29,12 @@ function dosearch(){
             lng : results[0].geometry.location.lng()
           }
 
-          performGet();
+
           map.setCenter({lat: pos.lat, lng: pos.lng});
+          performGet(pos);
+          
         }
       });
-
-   geocoder.geocode({'location': pos}, function(results, status) {
-         if (status === google.maps.GeocoderStatus.OK) {
-            setAddress(results[1].formatted_address);
-            performGet();
-          }
-    });
 }
 
 function performGet(pos) {
@@ -60,26 +56,29 @@ function performGet(pos) {
 
     $.get( "http://localhost:8080/places/show_json",
      function( data ) {
-           var count = data.length - 1; 
+           var count = data.length - 1;
 
-           markers.forEach(function(marker) {
-              marker.setMap(null);
-            });
+           if(count > -1) {
 
-           markers=[];
-           bounds = new google.maps.LatLngBounds();
+             markers.forEach(function(marker) {
+                marker.setMap(null);
+              });
 
-             for(;count >= 0; count--){
-                
-              var lat = data[count].lat;
-              var lng = data[count].lng;
-              var latlng = new google.maps.LatLng(lat,lng);
-              var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
-              markers.push(marker);
-              bounds.extend(latlng);  
-             }
+             markers=[];
+             bounds = new google.maps.LatLngBounds();
 
-             map.fitBounds(bounds);
+               for(;count >= 0; count--){
+                  
+                var lat = data[count].lat;
+                var lng = data[count].lng;
+                var latlng = new google.maps.LatLng(lat,lng);
+                var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
+                markers.push(marker);
+                bounds.extend(latlng);  
+               }
+
+               map.fitBounds(bounds);
+           }
 
     });
   }
@@ -90,13 +89,20 @@ function performGet(pos) {
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
+
+function refresh() {
+  google.maps.event.trigger(map, 'resize');
+  initMap();
+  console.log("Event triggered");
+}
+
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
     zoom: 13
   });
-  var input = /** @type {!HTMLInputElement} */(
-      document.getElementById('search'));
+
+  input = document.getElementById('search');
 
 
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -176,72 +182,5 @@ function initMap() {
 
 }
 
-
-
-
-
-
-
-function initAutocomplete() {
- 
- if(map == null) {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 32.8688, lng: -121.2195},
-    zoom: 6
-  });
-
-  geocoder = new google.maps.Geocoder;
-  bounds = new google.maps.LatLngBounds();
-
-  // Create the search box and link it to the UI element.
-  var searchBox = new google.maps.places.Autocomplete(input);
- } 
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // For each place, get the icon, name and location.
-    places.forEach(function(place) {
-      pos = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng()
-      }
-
-      map.setCenter(pos);
-      performGet(pos);
-    });
-
-  });
-
-      // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      map.setCenter(pos);
-      geocoder.geocode({'location': pos}, function(results, status) {
-         if (status === google.maps.GeocoderStatus.OK) {
-            setAddress(results[1].formatted_address);
-            performGet();
-          }
-        });
-      });
-
-    }
-}
 
 

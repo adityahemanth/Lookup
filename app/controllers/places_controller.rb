@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
 
 	layout "place"
+	require 'socket'
 
 	def show
 		@place = Place.find(params[:id])
@@ -20,6 +21,7 @@ class PlacesController < ApplicationController
 		end
 
 		@places = Place.all
+		@host =  Socket.gethostname
 	end
 
 	def within
