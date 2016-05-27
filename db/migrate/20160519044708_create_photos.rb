@@ -6,7 +6,7 @@ class CreatePhotos < ActiveRecord::Migration
     	t.references :place
 
     	t.string :title, default: ""
-    	t.text   :description, default: ""
+    	t.text   :description  #, default: ""   # mysql database cannot accept default values for text/blob types
 
       t.timestamps null: false
     end
