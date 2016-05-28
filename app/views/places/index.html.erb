@@ -49,24 +49,27 @@
                             <div class="content">
                                 <div class="right floated meta">14mi</div>
                                 <%=image_tag p.photos.first.image.url, :class=> "ui avatar image" %>
-                                    <%=link_to( p.title ,{:action=> 'show', :id => p.id }) %>
-                                        <!-- <img class="ui avatar image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> Elliot -->
+                                    <%= link_to( truncate(p.title, length: 25) ,{:action=> 'show', :id => p.id})%>
                             </div>
-                            <div class="image">
-                                <%=image_tag p.photos.first.image.url, :class=> "ui wireframe image" %>
-                                    <!-- <img class="ui wireframe image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> -->
-                            </div>
+                              <div class="image" style="height:200px; overflow:hidden;">
+                                  <%=image_tag p.photos.first.image.url, :class=> "ui wireframe image valign" %>
+                                      <!-- <img class="ui wireframe image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> -->
+                              </div>
                             <div class="content">
                                 <span class="right floated">
           <i class="material-icons icon" style="float:left; margin-right:5px;">favorite_border</i>
-          17 likes
+          <% rate = @ratings.where('cacheable_id=?', p.id).first %>
+          <% if( rate != nil) %>
+          <%= rate.qty %> ratings 
+          <% else %>
+          0 ratings
+          <% end %>
         </span>
                                 <i class="material-icons icon" style="float:left; margin-right:5px;">comment </i> 3 reviews
                             </div>
                             <div class="extra content">
-                                <div class="ui large transparent left icon input">
-                                    <input type="text" placeholder="Write a review...">
-                                </div>
+                                    <p> Rate this place </p>
+                                    <div> <%= rating_for p, "rating", :disable_after_rate => true, :cancel_place => 'right' %> </div>
                             </div>
                         </div>
                     </div>

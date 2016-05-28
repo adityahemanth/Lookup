@@ -20,6 +20,7 @@ class PlacesController < ApplicationController
 			@user = nil
 		end
 
+		@ratings = RatingCache.all
 		@places = Place.all
 		@host =  Socket.gethostname
 	end

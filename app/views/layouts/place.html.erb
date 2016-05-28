@@ -26,7 +26,6 @@
               <a href="#!" class="brand-logo"> <%= image_tag("logo.svg", class: "responsive-img", style: "height:30px;margin-top: 16px;") %> </a>
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
               <ul class="right hide-on-med-and-down">
-              <li> <%= 'Host : ' + @host %> </li>
               <%if @user != nil %>
                <li ><a href="badges.html"> 
                  <%= @user.email %>
@@ -54,7 +53,6 @@
           </nav>
         </div>
 
-        
       <%= yield %>
 
    <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 2em; right: 2em;">
