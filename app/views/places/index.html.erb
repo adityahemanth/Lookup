@@ -1,84 +1,107 @@
-    <div id="index-banner" class="parallax-container" style="margin-top:-65px;">
+<div id="index-banner" class="parallax-container" style="margin-top:-65px;">
     <div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <h1 class="header center white-text"> Welcome to Lookup </h1>
-        <div class="row center">
-          <h5 class="header col s12 light"> Find the hottest places around you!</h5>
+        <div class="container">
+            <br>
+            <br>
+            <h1 class="header center white-text"> Welcome to Lookup </h1>
+            <div class="row center">
+                <h5 class="header col s12 light"> Find the hottest places around you!</h5>
+            </div>
+            <br>
+            <br>
+
+
+            <input id='search' type='text' , class='input-field' , style='color:white; font-size:1.35em'>
+
+
+            <div class="center-align" style="padding-top:15px"> <a class="waves-effect waves-light btn" onclick="dosearch()">Search</a>
+            </div>
+
         </div>
-        <br><br>
-
-
-        <input id='search' type='text', class='input-field', style='color:white; font-size:1.35em'>
-
-
-         <div class="center-align" style="padding-top:15px"> <a class="waves-effect waves-light btn" onclick="dosearch()">Search</a></div>
-
-      </div>
     </div>
-    <div class="parallax"><img src="https://lh3.googleusercontent.com/-nBpoRGciu2k/VipgKMMfo8I/AAAAAAAAMao/KdSQEgAgptU/w1920-h1080/firewatch_150305_04.png" style="transform: translate3d(-50%, 260px, 0px); display: block;"></div>
-  </div>
+    <div class="parallax"><img src="https://lh3.googleusercontent.com/-nBpoRGciu2k/VipgKMMfo8I/AAAAAAAAMao/KdSQEgAgptU/w1920-h1080/firewatch_150305_04.png" style="transform: translate3d(-50%, 260px, 0px); display: block;">
+    </div>
+</div>
 
-
- <div class="row">
+<div class="row">
     <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#test1"> Card View </a></li>
-        <li class="tab col s3"><a href="#test2"> Map View </a></li>
-      </ul>
- </div>
-
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#test2"> card view </a>
+            </li>
+            <li class="tab col s3"><a href="#test1"> map view </a>
+            </li>
+        </ul>
+    </div>
     <div id="test1" class="col s12">
-    <div class ="container">
-      <div class ="row">
-    <% @places.each do |p| %>
-      <div class="card col l6 s12" style="padding:10px; margin:10px;">
-        <div class="row valign-wrapper">
-                <div class="col s2">
-                  <img src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg" alt="" style="height:40px;width:40px;" class="circle responsive-img"> <!-- notice the "circle" class -->
-                </div>
-                <div class="col s10 valign">
-                  <h5 style="color:#00897b" class="truncate">
-                   <%= link_to( p.title ,{:action => 'show', :id => p.id }) %>
-                  </h5>
-                </div>
-              </div>
-             <div class="col s10 valign">
-        <p> <%= p.description %> </p>
+      <div class="container" style="margin-top:20px">
+            <div class="row">
+                <div id="map" class="s12" style="height:700px;"></div>
+            </div>
         </div>
-
-        <div>
-          <% p.photos.limit(4).each do |x|  %>
-            <%= image_tag x.image.url, :class => "responsive-img", :style => "height:150px;" %>
-          <% end  %>
-        </div>
-
-        <div style="padding:10px"> <%= rating_for p, "rating", :disable_after_rate => true %> </div>
-
-      </div>
-    <% end %>
     </div>
-    </div>
-
-    </div> 
-
-  </div>
     <div id="test2" class="col s12">
-      <div class="container">
-        <div class="row">
-          <div id="map" class="s12" style="height:500px;"></div>
+
+        <div class="container">
+            <div class="row">
+                <% @places.each do |p| %>
+                    <div class="col l4 m6 s12" style="padding:15px;">
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="right floated meta">14mi</div>
+                                <%=image_tag p.photos.first.image.url, :class=> "ui avatar image" %>
+                                    <%=link_to( p.title ,{:action=> 'show', :id => p.id }) %>
+                                        <!-- <img class="ui avatar image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> Elliot -->
+                            </div>
+                            <div class="image">
+                                <%=image_tag p.photos.first.image.url, :class=> "ui wireframe image" %>
+                                    <!-- <img class="ui wireframe image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> -->
+                            </div>
+                            <div class="content">
+                                <span class="right floated">
+          <i class="material-icons icon" style="float:left; margin-right:5px;">favorite_border</i>
+          17 likes
+        </span>
+                                <i class="material-icons icon" style="float:left; margin-right:5px;">comment </i> 3 reviews
+                            </div>
+                            <div class="extra content">
+                                <div class="ui large transparent left icon input">
+                                    <input type="text" placeholder="Write a review...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% end %>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--   <div class="ui card">
+      <div class="content">
+        <div class="right floated meta">14h</div>
+        <img class="ui avatar image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg"> Elliot
+      </div>
+      <div class="image">
+        <img class="ui wireframe image" src="http://www.psdgraphics.com/wp-content/uploads/2015/06/ecology-nature.jpg">
+      </div>
+      <div class="content">
+        <span class="right floated">
+          <i class="heart outline like icon"></i>
+          17 likes
+        </span>
+        <i class="comment icon"></i>
+        3 comments
+      </div>
+      <div class="extra content">
+        <div class="ui large transparent left icon input">
+          <i class="heart outline icon"></i>
+          <input type="text" placeholder="Add Comment...">
         </div>
       </div>
     </div>
-  </div>
-        
 
-
-
-
-
-
-
-
-
-
+ -->

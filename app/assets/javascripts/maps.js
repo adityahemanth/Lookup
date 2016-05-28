@@ -102,6 +102,7 @@ function initMap() {
     zoom: 13
   });
 
+
   input = document.getElementById('search');
 
 
