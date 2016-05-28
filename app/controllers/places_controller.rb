@@ -4,12 +4,32 @@ class PlacesController < ApplicationController
 	require 'socket'
 
 	def show
+
+		if current_user
+			@user = current_user
+		else
+			@user = nil
+		end
+
 		@place = Place.find(params[:id])
+		rate = RatingCache.where('cacheable_id=?', @place.id)
+		if(rate != nil)
+			@rating = rate.first.qty
+		else
+			@rating = 0
+		end
 	end
 
 	def show_json
+		latlng = [params[:lat], params[:lng]]
+		radius = params[:radius]
+
+		if radius == 0
+			radius = 100
+		end
+
+		@places = Place.within(radius,  :origin => latlng)
 		
-		@places = Place.all
 		render :json => @places
 	end
 

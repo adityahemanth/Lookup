@@ -22,11 +22,11 @@
         <div class="navbar-fixed">
           <nav class = "#d84315 deep-orange darken-3">
             <div class="nav-wrapper container">
-              <a href="#!" class="brand-logo"> <%= image_tag("logo.svg", class: "responsive-img", style: "height:30px;margin-top: 16px;") %> </a>
+              <a href="/" class="brand-logo"> <%= image_tag("logo.svg", class: "responsive-img", style: "height:30px;margin-top: 16px;") %> </a>
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
               <ul class="right hide-on-med-and-down">
               <%if @user != nil %>
-               <li ><a href="badges.html"> 
+               <li ><a href="/users/edit"> 
                  <%= @user.email %>
                </a></li>
                 <li ><a> <%= link_to('Logout', destroy_user_session_path, :method => :delete) %></a>></li>
@@ -55,16 +55,6 @@
     <div class="container">
      <%= yield %>
     </div>
-
-   <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 2em; right: 2em;">
-        <a class="btn-floating btn-large red">
-          <i class="material-icons">add</i>
-        </a>
-        <ul>
-          <li><a class="btn-floating btn-large red"><i class="material-icons">group</i></a></li>
-          <li><a class="btn-floating btn-large green modal-trigger"  data-target="upload"><i class="material-icons">publish</i></a></li>
-        </ul>
-      </div>
 
 
 

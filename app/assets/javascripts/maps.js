@@ -54,11 +54,14 @@ function performGet(pos) {
     //   $("#radius").val(rad);
     // }
 
-    $.get( "http://localhost:8080/places/show_json",
+
+    $.get( "http://localhost:8080/places/show_json", {radius:"100", lat:"34", lng:"-119"},
      function( data ) {
            var count = data.length - 1;
 
            if(count > -1) {
+
+            console.log(data)
 
              markers.forEach(function(marker) {
                 marker.setMap(null);
@@ -72,7 +75,7 @@ function performGet(pos) {
                 var lat = data[count].lat;
                 var lng = data[count].lng;
                 var latlng = new google.maps.LatLng(lat,lng);
-                var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
+                //var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
                 markers.push(marker);
                 bounds.extend(latlng);  
                }
@@ -89,18 +92,18 @@ function performGet(pos) {
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-
-function refresh() {
-  google.maps.event.trigger(map, 'resize');
-  initMap();
-  console.log("Event triggered");
-}
-
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
     zoom: 13
   });
+
+
+  $('#map-tab').on('click', function() {
+    setTimeout(function(){
+        google.maps.event.trigger(map, 'resize');
+    }, 50);
+   });
 
 
   input = document.getElementById('search');
@@ -108,11 +111,6 @@ function initMap() {
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
-
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -143,7 +141,6 @@ function initMap() {
 
 
   autocomplete.addListener('place_changed', function() {
-    marker.setVisible(false);
     var place = autocomplete.getPlace();
     if (!place.geometry) {
       window.alert("Autocomplete's returned place contains no geometry");
@@ -157,15 +154,7 @@ function initMap() {
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
+    
 
     var address = '';
     if (place.address_components) {

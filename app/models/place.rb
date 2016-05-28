@@ -3,6 +3,7 @@ class Place < ActiveRecord::Base
 	has_many :places_tags
 	has_many :tags, through: :places_tags
 	has_many :photos
+	has_many :reviews
 
 	ratyrate_rateable "rating"
 
