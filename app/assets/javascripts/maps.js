@@ -65,15 +65,27 @@ function performGet(pos) {
              bounds = new google.maps.LatLngBounds();
 
                for(;count >= 0; count--){
-                var dist = data[count].dist
-                var place = data[count].place
-                console.log(place.title)
+                var dist = data[count].dist;
+                var place = data[count].place;
+                var id = place.id;
+                console.log(id);
                 var lat = place.lat;
                 var lng = place.lng;
                 var latlng = new google.maps.LatLng(lat,lng);
                 var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
+                marker.setTitle(id + "")
+                // marker.addListener('click', function() {
+                //   window.location.replace("/places/show/" + id);
+                // });
                 markers.push(marker);
                 bounds.extend(latlng);  
+               }
+
+               for(var m in markers){
+                  new google.maps.event.addListener(m, 'click', function () {
+                     window.location.replace("/places/show/" + m.getTitle());
+                  });
+
                }
 
                map.fitBounds(bounds);

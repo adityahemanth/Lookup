@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd" []>
+<tsung loglevel="warning">
+
+  <clients>
+    <client host="localhost" cpu="2" maxusers="30000000"/>
+  </clients>
+
+  <servers>
+    <server host="www.google.com" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="1" unit="minute">
+      <users arrivalrate="5" unit="second"/>
+    </arrivalphase>
+  </load>
+
+  <sessions>
+    <session name="es_load" weight="1" type="ts_http">
+      <request>
+      <http url="/fooindex/issue/_search"
+              method="GET"
+              contents_from_file="query.json" />
+      </request>
+    </session>
+  </sessions>
+</tsung>
