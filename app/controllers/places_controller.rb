@@ -1,5 +1,11 @@
 class PlacesController < ApplicationController
 
+	class Message
+		attr_accessor :place
+		attr_accessor :dist
+
+	end
+
 	layout "place"
 	require 'socket'
 
@@ -21,16 +27,27 @@ class PlacesController < ApplicationController
 	end
 
 	def show_json
-		latlng = [params[:lat], params[:lng]]
-		radius = params[:radius]
 
-		if radius == 0
-			radius = 100
+		if(params[:lat] == nil)
+			@places = Place.all
+			latlng = [0,0]
+
+		else
+			latlng = [params[:lat], params[:lng]]
+			radius = params[:radius]
+			@places = Place.within(radius,  :origin => latlng)
+		end
+		
+		pt = Geokit::LatLng.new( params[:lat] ,params[:lng])
+		@message = Array.new
+		@places.each do |p|
+			 m = Message.new
+			 m.place = p
+			 m.dist = p.distance_to(pt)
+			 @message << m
 		end
 
-		@places = Place.within(radius,  :origin => latlng)
-		
-		render :json => @places
+		render :json => @message
 	end
 
 	def index

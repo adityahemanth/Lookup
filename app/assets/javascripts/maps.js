@@ -46,17 +46,11 @@ function performGet(pos) {
       anchor: new google.maps.Point(17, 34),
       scaledSize: new google.maps.Size(35, 35)
     };
-    // var rad = $("#radius").val();
-
-    // // check 
-    // if(rad===""){
-    //   rad = 5;
-    //   $("#radius").val(rad);
-    // }
 
 
-    $.get( "http://localhost:8080/places/show_json", {radius:"100", lat:"34", lng:"-119"},
+    $.get( "http://localhost:8080/places/show_json",
      function( data ) {
+
            var count = data.length - 1;
 
            if(count > -1) {
@@ -71,11 +65,13 @@ function performGet(pos) {
              bounds = new google.maps.LatLngBounds();
 
                for(;count >= 0; count--){
-                  
-                var lat = data[count].lat;
-                var lng = data[count].lng;
+                var dist = data[count].dist
+                var place = data[count].place
+                console.log(place.title)
+                var lat = place.lat;
+                var lng = place.lng;
                 var latlng = new google.maps.LatLng(lat,lng);
-                //var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
+                var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
                 markers.push(marker);
                 bounds.extend(latlng);  
                }
