@@ -64,35 +64,54 @@ function performGet(pos) {
              markers=[];
              bounds = new google.maps.LatLngBounds();
 
+               var tc = 0;
+               var id =[];
+
                for(;count >= 0; count--){
                 var dist = data[count].dist;
                 var place = data[count].place;
                 var id = place.id;
+
+                id[tc] = id;
+                tc += 1;
+
                 console.log(id);
                 var lat = place.lat;
                 var lng = place.lng;
                 var latlng = new google.maps.LatLng(lat,lng);
-                var marker = new google.maps.Marker({ position: latlng, map: map,  icon: icon});
-                marker.setTitle(id + "")
-                // marker.addListener('click', function() {
-                //   window.location.replace("/places/show/" + id);
-                // });
+                var marker = new google.maps.Marker({ position: latlng, 
+                                                      map: map,  
+                                                      icon: icon,
+                                                      url : "/places/show/" + id
+                                                    });
+
                 markers.push(marker);
+                google.maps.event.addListener(marker, 'click', loadURL(marker));
                 bounds.extend(latlng);  
                }
 
-               for(var m in markers){
-                  new google.maps.event.addListener(m, 'click', function () {
-                     window.location.replace("/places/show/" + m.getTitle());
-                  });
-
-               }
-
-               map.fitBounds(bounds);
+               map.setCenter({lat: pos.lat, lng: pos.lng});
            }
 
     });
   }
+
+
+function loadURL(marker) {
+    return function () {
+        window.location.href = marker.url;
+    }
+}
+
+
+function smallMap(pos) {
+
+
+   map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 13
+  });
+}
 
 
 

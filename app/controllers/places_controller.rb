@@ -19,7 +19,7 @@ class PlacesController < ApplicationController
 
 		@place = Place.find(params[:id])
 		rate = RatingCache.where('cacheable_id=?', @place.id)
-		if(rate != nil)
+		if(rate.first != nil)
 			@rating = rate.first.qty
 		else
 			@rating = 0
