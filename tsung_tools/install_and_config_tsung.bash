@@ -19,8 +19,8 @@ sudo dpkg -i tsung_1.5.0-1_all.deb
 tsung -f lookup.xml start
 
 
-mkdir lookup_gcp_1000000users_1min_output
-cd lookup_gcp_1000000users_1min_output
-/usr/lib/tsung/bin/tsung_stats.pl --stats /home/omid55/.tsung/log/20160528-2110/tsung.log
+mkdir NEW/lookup_16_256_stepwise_output
+cd NEW/lookup_16_256_stepwise_output
+/usr/lib/tsung/bin/tsung_stats.pl --stats /home/omid55/.tsung/log/20160529-1711/tsung.log
 
 google-chrome graph.html
